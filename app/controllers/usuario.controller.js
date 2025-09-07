@@ -5,31 +5,17 @@ const jwt = require("jsonwebtoken");
 //Registra un usuario
 exports.registrarUsuario = async (req, res) => {
     try {
-        const { email, password, rol, nombre, carnet } = req.body;
+        const { email, password, rol } = req.body;
 
         
         const nuevoUsuario = await Usuario.create({
             email,
-            password: password,
+            password,
             rol
         });
 
-        if (rol === 'maestro') {
-            await db.Maestro.create({
-                nombre,
-                email,
-                usuarioId: nuevoUsuario.id,
-            });
-        } else if (rol === 'estudiante') {
-            await db.Estudiante.create({
-                nombre,
-                carnet,
-                email,
-                usuarioId: nuevoUsuario.id,
-            });
-        }
-
         res.status(201).json({ message: "Usuario registrado exitosamente", usuario: nuevoUsuario });  
+        
     } catch (error) {
         console.error("Error al registrar usuario:", error);
         res.status(500).json({ message: "Error interno del servidor" });
