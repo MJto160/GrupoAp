@@ -53,14 +53,13 @@ db.Curso.hasMany(db.Asignacion, { foreignKey: "cursoId", as: "asignaciones" });
 db.Asignacion.belongsTo(db.Curso, { foreignKey: "cursoId", as: "curso" });
 
 //relacion de usuario con maestro
-db.Usuario.hasOne(db.Estudiante,{foreignKey: "usuarioId", as: "maestro"});
+db.Usuario.hasOne(db.Maestro,{ foreignKey: "usuarioId", as: "maestro"});
 db.Maestro.belongsTo(db.Usuario,{ foreignKey: "usuarioId", as: "usuario"});
 
 
 //Relacion estudiante con usuario
-db.Usuario.hasOne(db.Usuario,{ foreignKey: "usuarioId", as: "estudiante"});
+db.Usuario.hasOne(db.Estudiante,{ foreignKey: "usuarioId", as: "estudiante"});
 db.Estudiante.belongsTo(db.Usuario,{ foreignKey: "usuarioId", as: "usuario"});
-
 
 
 
