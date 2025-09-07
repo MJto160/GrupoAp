@@ -15,7 +15,7 @@ exports.registrarUsuario = async (req, res) => {
         });
 
         res.status(201).json({ message: "Usuario registrado exitosamente", usuario: nuevoUsuario });  
-        
+
     } catch (error) {
         console.error("Error al registrar usuario:", error);
         res.status(500).json({ message: "Error interno del servidor" });
@@ -44,8 +44,7 @@ exports.loginUsuario = async (req, res) => {
             { expiresIn: "1h" }
         );
 
-        res.status(200).json({ message: "Login exitoso", token });
-
+        res.status(200).json({message: "Login exitoso", token, rol: usuario.rol});
     } catch (error) {
         console.error("Error al iniciar sesión:", error);
         res.status(500).json({ message: "Error interno del servidor" });
