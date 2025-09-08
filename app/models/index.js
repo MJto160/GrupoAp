@@ -27,8 +27,8 @@ db.sequelize = sequelize;
 db.Usuario = require("./usuario.model.js")(sequelize, Sequelize.DataTypes);
 db.Estudiante = require("./estudiante.model.js")(sequelize, Sequelize.DataTypes);
 db.Maestro = require("./maestro.model.js")(sequelize, Sequelize.DataTypes);
-db.Curso = require("./curso.model.js")(sequelize, Sequelize,Sequelize.DataTypes);
-db.Asignacion = require("./asignacion.model.js")(sequelize, Sequelize,Sequelize.DataTypes);
+db.Curso = require("./curso.model.js")(sequelize, Sequelize.DataTypes);
+db.Asignacion = require("./asignacion.model.js")(sequelize, Sequelize.DataTypes);
 db.Grado = require("./grado.model.js")(sequelize, Sequelize.DataTypes);
 
 
