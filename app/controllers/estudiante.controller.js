@@ -19,7 +19,7 @@ exports.obtenerEstudiantes = async (req, res) => {
         res.status(200).json(estudiantes);
     } catch (error) {
         console.error("Error al obtener los estudiantes:", error);
-        res.status(500).json({ message: "Error al obtener los estudiantes" });
+        res.status(500).json({ message: "Error al obtener los estudiantes", error: error.message });
     }
 };
 
