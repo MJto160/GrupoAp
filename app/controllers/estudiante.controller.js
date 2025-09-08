@@ -15,6 +15,7 @@ exports.crearEstudiante = async (req, res) => {
 //Obtengo todos los estudiantes 
 exports.obtenerEstudiantes = async (req, res) => {
     try {
+        console.log("DEBUG Estudiante:", Estudiante);
         const estudiantes = await Estudiante.findAll();
         res.status(200).json(estudiantes);
     } catch (error) {

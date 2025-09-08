@@ -2,7 +2,6 @@ const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
   dialectOptions: {
@@ -19,11 +18,11 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   }
 });
 
-
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+// Primero definimos los modelos
 db.Usuario = require("./usuario.model.js")(sequelize, Sequelize.DataTypes);
 db.Estudiante = require("./estudiante.model.js")(sequelize, Sequelize.DataTypes);
 db.Maestro = require("./maestro.model.js")(sequelize, Sequelize.DataTypes);
@@ -31,36 +30,34 @@ db.Curso = require("./curso.model.js")(sequelize, Sequelize.DataTypes);
 db.Asignacion = require("./asignacion.model.js")(sequelize, Sequelize.DataTypes);
 db.Grado = require("./grado.model.js")(sequelize, Sequelize.DataTypes);
 
+// RELACIONES
 
-//esto es la relacion entre curso y grado
+// Curso - Grado
 db.Curso.hasMany(db.Grado, { foreignKey: "cursoId", as: "grados" });
 db.Grado.belongsTo(db.Curso, { foreignKey: "cursoId", as: "curso" });
 
-//relacion entre estudiante y grado
+// Estudiante - Grado
 db.Estudiante.hasMany(db.Grado, { foreignKey: "estudianteId", as: "grados" });
 db.Grado.belongsTo(db.Estudiante, { foreignKey: "estudianteId", as: "estudiante" });
 
-//relacion entre maestro y curso
+// Maestro - Curso
 db.Maestro.hasMany(db.Curso, { foreignKey: "maestroId", as: "cursos" });
 db.Curso.belongsTo(db.Maestro, { foreignKey: "maestroId", as: "profesor" });
 
-//relacion entre estudiante y curso a traves de asignacion
+// Estudiante - Asignacion
 db.Estudiante.hasMany(db.Asignacion, { foreignKey: "estudianteId", as: "asignaciones" });
 db.Asignacion.belongsTo(db.Estudiante, { foreignKey: "estudianteId", as: "estudiante" });
 
-//relacion entre curso y estudiante a traves de asignacion
+// Curso - Asignacion
 db.Curso.hasMany(db.Asignacion, { foreignKey: "cursoId", as: "asignaciones" });
 db.Asignacion.belongsTo(db.Curso, { foreignKey: "cursoId", as: "curso" });
 
-//relacion de usuario con maestro
-db.Usuario.hasOne(db.Maestro,{ foreignKey: "usuarioId", as: "maestro"});
-db.Maestro.belongsTo(db.Usuario,{ foreignKey: "usuarioId", as: "usuario"});
+// Usuario - Maestro
+db.Usuario.hasOne(db.Maestro, { foreignKey: "usuarioId", as: "maestro" });
+db.Maestro.belongsTo(db.Usuario, { foreignKey: "usuarioId", as: "usuario" });
 
-
-//Relacion estudiante con usuario
-db.Usuario.hasOne(db.Estudiante,{ foreignKey: "usuarioId", as: "estudiante"});
-db.Estudiante.belongsTo(db.Usuario,{ foreignKey: "usuarioId", as: "usuario"});
-
-
+// Usuario - Estudiante
+db.Usuario.hasOne(db.Estudiante, { foreignKey: "usuarioId", as: "estudiante" });
+db.Estudiante.belongsTo(db.Usuario, { foreignKey: "usuarioId", as: "usuario" });
 
 module.exports = db;
