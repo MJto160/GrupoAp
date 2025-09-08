@@ -1,5 +1,5 @@
 const dbConfig = require("../config/db.config.js");
-const Sequelize = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -19,18 +19,17 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 });
 
 const db = {};
+
+
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// Primero definimos los modelos
-db.Usuario = require("./usuario.model.js")(sequelize, Sequelize.DataTypes);
-db.Estudiante = require("./estudiante.model.js")(sequelize, Sequelize.DataTypes);
-db.Maestro = require("./maestro.model.js")(sequelize, Sequelize.DataTypes);
-db.Curso = require("./curso.model.js")(sequelize, Sequelize.DataTypes);
-db.Asignacion = require("./asignacion.model.js")(sequelize, Sequelize.DataTypes);
-db.Grado = require("./grado.model.js")(sequelize, Sequelize.DataTypes);
-
-// RELACIONES
+db.Usuario = require("./usuario.model.js")(sequelize, DataTypes);
+db.Estudiante = require("./estudiante.model.js")(sequelize, DataTypes);
+db.Maestro = require("./maestro.model.js")(sequelize, DataTypes);
+db.Curso = require("./curso.model.js")(sequelize, DataTypes);
+db.Asignacion = require("./asignacion.model.js")(sequelize, DataTypes);
+db.Grado = require("./grado.model.js")(sequelize, DataTypes);
 
 // Curso - Grado
 db.Curso.hasMany(db.Grado, { foreignKey: "cursoId", as: "grados" });
@@ -59,5 +58,11 @@ db.Maestro.belongsTo(db.Usuario, { foreignKey: "usuarioId", as: "usuario" });
 // Usuario - Estudiante
 db.Usuario.hasOne(db.Estudiante, { foreignKey: "usuarioId", as: "estudiante" });
 db.Estudiante.belongsTo(db.Usuario, { foreignKey: "usuarioId", as: "usuario" });
+
+
+console.log("DEBUG: Modelos cargados:");
+console.log("Estudiante:", !!db.Estudiante);
+console.log("Maestro:", !!db.Maestro);
+console.log("Curso:", !!db.Curso);
 
 module.exports = db;
