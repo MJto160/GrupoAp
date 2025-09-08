@@ -25,11 +25,11 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.Usuario = require("./usuario.model.js")(sequelize, Sequelize.DataTypes);
-db.Estudiante = require("./estudiante.model.js")(sequelize, Sequelize);
-db.Maestro = require("./maestro.model.js")(sequelize, Sequelize);
-db.Curso = require("./curso.model.js")(sequelize, Sequelize);
-db.Asignacion = require("./asignacion.model.js")(sequelize, Sequelize);
-db.Grado = require("./grado.model.js")(sequelize, Sequelize);
+db.Estudiante = require("./estudiante.model.js")(sequelize, Sequelize.DataTypes);
+db.Maestro = require("./maestro.model.js")(sequelize, Sequelize.DataTypes);
+db.Curso = require("./curso.model.js")(sequelize, Sequelize,Sequelize.DataTypes);
+db.Asignacion = require("./asignacion.model.js")(sequelize, Sequelize,Sequelize.DataTypes);
+db.Grado = require("./grado.model.js")(sequelize, Sequelize.DataTypes);
 
 
 //esto es la relacion entre curso y grado
