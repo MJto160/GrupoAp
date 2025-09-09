@@ -1,6 +1,7 @@
 const dbConfig = require("../config/db.config.js");
 const { Sequelize, DataTypes } = require("sequelize");
 
+// Crear instancia de Sequelize
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -20,9 +21,10 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
 const db = {};
 
-
+// Guardar Sequelize y la conexión
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+
 
 db.Usuario = require("./usuario.model.js")(sequelize, DataTypes);
 db.Estudiante = require("./estudiante.model.js")(sequelize, DataTypes);
@@ -30,6 +32,7 @@ db.Maestro = require("./maestro.model.js")(sequelize, DataTypes);
 db.Curso = require("./curso.model.js")(sequelize, DataTypes);
 db.Asignacion = require("./asignacion.model.js")(sequelize, DataTypes);
 db.Grado = require("./grado.model.js")(sequelize, DataTypes);
+
 
 // Curso - Grado
 db.Curso.hasMany(db.Grado, { foreignKey: "cursoId", as: "grados" });
@@ -64,5 +67,8 @@ console.log("DEBUG: Modelos cargados:");
 console.log("Estudiante:", !!db.Estudiante);
 console.log("Maestro:", !!db.Maestro);
 console.log("Curso:", !!db.Curso);
+console.log("Grado:", !!db.Grado);
+console.log("Asignacion:", !!db.Asignacion);
 
+// Exportar db con modelos y conexión
 module.exports = db;

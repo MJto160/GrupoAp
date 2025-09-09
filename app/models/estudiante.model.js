@@ -12,13 +12,13 @@ module.exports = (sequelize, DataTypes) => {
         carnet: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: false
             
         },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
+            unique: false,
         },
         telefono: {
             type: DataTypes.STRING,

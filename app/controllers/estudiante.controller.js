@@ -1,7 +1,8 @@
-const db = require("../models");
-const  Estudiante = db.Estudiante;
 
-//Aca creo un nuevo estudiante
+const db = require("../models");
+const Estudiante = db.Estudiante;
+
+// Crear un nuevo estudiante
 exports.crearEstudiante = async (req, res) => {
     try {
         const estudiante = await Estudiante.create(req.body);
@@ -12,10 +13,9 @@ exports.crearEstudiante = async (req, res) => {
     }
 };
 
-//Obtengo todos los estudiantes 
+// Obtener todos los estudiantes
 exports.obtenerEstudiantes = async (req, res) => {
     try {
-        console.log("DEBUG Estudiante:", Estudiante);
         const estudiantes = await Estudiante.findAll();
         res.status(200).json(estudiantes);
     } catch (error) {
@@ -24,55 +24,57 @@ exports.obtenerEstudiantes = async (req, res) => {
     }
 };
 
-//Busco un estudiante por el Id
+// Obtener un estudiante por ID
 exports.obtenerEstudiantePorId = async (req, res) => {
-        try {
-            const estudiante = await Estudiante.findByPk(req.params.id);
-            if(!estudiante) return res.status(404).json({ message: "Estudiante no encontrado" });
-            res.status(200).json(estudiante);
-        } catch (error) {
-            console.error("Error al obtener el estudiante:", error);
-            res.status(500).json({ message: "Error al obtener el estudiante" });
-        }
-};
-
-// Actualizo un estudiante por id
-exports.actualizarEstudiante = async (req, res) => {
-    try { 
-        const student = await Estudiante.findByPk(req.params.id);
-        if(!student) return res.status(404).json({ message: "Estudiante no encontrado" });
-
-        await student.update(req.body);
-        res.json({mensaje: 'Estudiante actualizado correctamente'});
+    try {
+        const estudiante = await Estudiante.findByPk(req.params.id);
+        if (!estudiante) return res.status(404).json({ message: "Estudiante no encontrado" });
+        res.status(200).json(estudiante);
     } catch (error) {
-      res.status(500).json({ message: "Error al actualizar el estudiante" });
+        console.error("Error al obtener el estudiante:", error);
+        res.status(500).json({ message: "Error al obtener el estudiante" });
     }
 };
 
+// Actualizar un estudiante por ID
+exports.actualizarEstudiante = async (req, res) => {
+    try {
+        const estudiante = await Estudiante.findByPk(req.params.id);
+        if (!estudiante) return res.status(404).json({ message: "Estudiante no encontrado" });
 
-//eliminar un estudiante por id
+        await estudiante.update(req.body);
+        res.json({ mensaje: 'Estudiante actualizado correctamente' });
+    } catch (error) {
+        console.error("Error al actualizar el estudiante:", error);
+        res.status(500).json({ message: "Error al actualizar el estudiante" });
+    }
+};
+
+// Eliminar un estudiante por ID
 exports.eliminarEstudiante = async (req, res) => {
     try {
-        const student = await Estudiante.findByPk(req.params.id);
-        if(!student) return res.status(404).json({ message: "Estudiante no encontrado" });
+        const estudiante = await Estudiante.findByPk(req.params.id);
+        if (!estudiante) return res.status(404).json({ message: "Estudiante no encontrado" });
 
-        await student.destroy();
-        res.json({mensaje: 'Estudiante eliminado correctamente'});
+        await estudiante.destroy();
+        res.json({ mensaje: 'Estudiante eliminado correctamente' });
     } catch (error) {
-      res.status(500).json({ message: "Error al eliminar el estudiante" });
+        console.error("Error al eliminar el estudiante:", error);
+        res.status(500).json({ message: "Error al eliminar el estudiante" });
     }
-}
+};
 
-//Dar de baja o alta a un estudiante
+// Dar de baja o alta a un estudiante (cambiar estado activo)
 exports.darBajaAltaEstudiante = async (req, res) => {
     try {
         const estudiante = await Estudiante.findByPk(req.params.id);
-        if(!estudiante) return res.status(404).json({ message: "Estudiante no encontrado" });
+        if (!estudiante) return res.status(404).json({ message: "Estudiante no encontrado" });
 
         estudiante.activo = !estudiante.activo;
         await estudiante.save();
         res.json({ mensaje: `Estudiante ${estudiante.activo ? 'habilitado' : 'deshabilitado'} correctamente` });
     } catch (error) {
+        console.error("Error al cambiar el estado del estudiante:", error);
         res.status(500).json({ message: "Error al cambiar el estado del estudiante" });
     }
 };
