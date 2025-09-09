@@ -15,7 +15,17 @@ exports.crearCurso = async (req, res) => {
 //obtengo los cursos 
 exports.obtenerCursos = async (req, res) => {
     try {
-        const cursos = await Curso.findAll();
+        const { estudianteId } = req.query; // capturamos el query param
+
+        let cursos;
+        if (estudianteId) {
+            // Filtrar cursos de ese estudiante
+            cursos = await Curso.findAll({ where: { estudianteId } });
+        } else {
+            // Todos los cursos
+            cursos = await Curso.findAll();
+        }
+
         res.status(200).json(cursos);
     } catch (error) {
         console.error("Error al obtener los cursos:", error);
