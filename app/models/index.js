@@ -1,7 +1,6 @@
 const dbConfig = require("../config/db.config.js");
 const { Sequelize, DataTypes } = require("sequelize");
 
-// Crear instancia de Sequelize
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -21,7 +20,6 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
 const db = {};
 
-// Guardar Sequelize y la conexión
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
@@ -34,31 +32,24 @@ db.Asignacion = require("./asignacion.model.js")(sequelize, DataTypes);
 db.Grado = require("./grado.model.js")(sequelize, DataTypes);
 
 
-// Curso - Grado
 db.Curso.hasMany(db.Grado, { foreignKey: "cursoId", as: "grados" });
 db.Grado.belongsTo(db.Curso, { foreignKey: "cursoId", as: "curso" });
 
-Estudiante - Grado
 db.Estudiante.hasMany(db.Grado, { foreignKey: "estudianteId", as: "grados" });
 db.Grado.belongsTo(db.Estudiante, { foreignKey: "estudianteId", as: "estudiante" });
 
-// Maestro - Curso
 db.Maestro.hasMany(db.Curso, { foreignKey: "maestroId", as: "cursos" });
 db.Curso.belongsTo(db.Maestro, { foreignKey: "maestroId", as: "profesor" });
 
-//Estudiante - Asignacion
 db.Estudiante.hasMany(db.Asignacion, { foreignKey: "estudianteId", as: "asignaciones" });
 db.Asignacion.belongsTo(db.Estudiante, { foreignKey: "estudianteId", as: "estudiante" });
 
-// Curso - Asignacion
 db.Curso.hasMany(db.Asignacion, { foreignKey: "cursoId", as: "asignaciones" });
 db.Asignacion.belongsTo(db.Curso, { foreignKey: "cursoId", as: "curso" });
 
-// Usuario - Maestro
 db.Usuario.hasOne(db.Maestro, { foreignKey: "usuarioId", as: "maestro" });
 db.Maestro.belongsTo(db.Usuario, { foreignKey: "usuarioId", as: "usuario" });
 
-// Usuario - Estudiante
 db.Usuario.hasOne(db.Estudiante, { foreignKey: "usuarioId", as: "estudiante" });
 db.Estudiante.belongsTo(db.Usuario, { foreignKey: "usuarioId", as: "usuario" });
 
@@ -67,8 +58,5 @@ console.log("DEBUG: Modelos cargados:");
 console.log("Estudiante:", !!db.Estudiante);
 console.log("Maestro:", !!db.Maestro);
 console.log("Curso:", !!db.Curso);
-console.log("Grado:", !!db.Grado);
-console.log("Asignacion:", !!db.Asignacion);
 
-// Exportar db con modelos y conexión
 module.exports = db;

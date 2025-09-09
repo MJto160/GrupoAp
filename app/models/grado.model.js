@@ -1,6 +1,3 @@
-const e = require("cors");
-const { obtenerEstudiantePorId } = require("../controllers/estudiante.controller");
-
 module.exports = (sequelize, DataTypes) => {
     const Grado = sequelize.define('Grado', {
         id: {
@@ -24,10 +21,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'cursos',
+                model: 'curso',
                 key: 'id'
             },
-            onDelete: "CASCADE",
+            onDelete: "CASCADE"
             onUpdate: "CASCADE"
         },
         estudianteId: {

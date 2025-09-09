@@ -1,5 +1,3 @@
-const { all } = require("../routes/asignacion.routes");
-
 module.exports = (sequelize, DataTypes) => {
     const Asignacion = sequelize.define('Asignacion', {
         id: {
@@ -30,8 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         fechaAsignacion: {
             type: DataTypes.DATEONLY,
             allowNull: false,
-        }
-        
+        },
     },{
         tableName: 'asignaciones',
         timestamps: false

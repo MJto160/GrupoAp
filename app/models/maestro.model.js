@@ -1,4 +1,5 @@
-// maestro.model.js
+//const { act } = require("react");
+
 module.exports = (sequelize, DataTypes) => {
     const Maestro = sequelize.define('Maestro', {
         id: {
@@ -15,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             unique: true
         },
-        Telefono: {   
+        Telefono: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -31,10 +32,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         }
+ 
     }, {
         tableName: 'maestro',
         timestamps: false
     });
 
-    return Maestro;
-};
+    return  Maestro;
+}
