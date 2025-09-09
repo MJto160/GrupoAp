@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         rol: {
             type: DataTypes.ENUM('admin','maestro', 'estudiante'),
             allowNull: false
-        },
+        }
     }, {
         timestamps: true,
         tableName: 'usuarios'
