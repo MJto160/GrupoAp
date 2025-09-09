@@ -1,6 +1,5 @@
-
-const db = require("../models");
-const Estudiante = db.Estudiante;
+const { Estudiante } = require('../models'); // Desestructuramos directamente
+console.log("DEBUG Estudiante:", Estudiante);
 
 // Crear un nuevo estudiante
 exports.crearEstudiante = async (req, res) => {
@@ -9,7 +8,7 @@ exports.crearEstudiante = async (req, res) => {
         res.status(201).json(estudiante);
     } catch (error) {
         console.error("Error al crear el estudiante:", error);
-        res.status(500).json({ message: "Error al crear el estudiante" });
+        res.status(500).json({ message: "Error al crear el estudiante", error: error.message });
     }
 };
 
@@ -32,7 +31,7 @@ exports.obtenerEstudiantePorId = async (req, res) => {
         res.status(200).json(estudiante);
     } catch (error) {
         console.error("Error al obtener el estudiante:", error);
-        res.status(500).json({ message: "Error al obtener el estudiante" });
+        res.status(500).json({ message: "Error al obtener el estudiante", error: error.message });
     }
 };
 
@@ -46,7 +45,7 @@ exports.actualizarEstudiante = async (req, res) => {
         res.json({ mensaje: 'Estudiante actualizado correctamente' });
     } catch (error) {
         console.error("Error al actualizar el estudiante:", error);
-        res.status(500).json({ message: "Error al actualizar el estudiante" });
+        res.status(500).json({ message: "Error al actualizar el estudiante", error: error.message });
     }
 };
 
@@ -60,11 +59,11 @@ exports.eliminarEstudiante = async (req, res) => {
         res.json({ mensaje: 'Estudiante eliminado correctamente' });
     } catch (error) {
         console.error("Error al eliminar el estudiante:", error);
-        res.status(500).json({ message: "Error al eliminar el estudiante" });
+        res.status(500).json({ message: "Error al eliminar el estudiante", error: error.message });
     }
 };
 
-// Dar de baja o alta a un estudiante (cambiar estado activo)
+// Dar de baja o alta a un estudiante
 exports.darBajaAltaEstudiante = async (req, res) => {
     try {
         const estudiante = await Estudiante.findByPk(req.params.id);
@@ -75,6 +74,6 @@ exports.darBajaAltaEstudiante = async (req, res) => {
         res.json({ mensaje: `Estudiante ${estudiante.activo ? 'habilitado' : 'deshabilitado'} correctamente` });
     } catch (error) {
         console.error("Error al cambiar el estado del estudiante:", error);
-        res.status(500).json({ message: "Error al cambiar el estado del estudiante" });
+        res.status(500).json({ message: "Error al cambiar el estado del estudiante", error: error.message });
     }
 };

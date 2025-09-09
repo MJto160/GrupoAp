@@ -39,16 +39,16 @@ db.Curso.hasMany(db.Grado, { foreignKey: "cursoId", as: "grados" });
 db.Grado.belongsTo(db.Curso, { foreignKey: "cursoId", as: "curso" });
 
 // Estudiante - Grado
-db.Estudiante.hasMany(db.Grado, { foreignKey: "estudianteId", as: "grados" });
-db.Grado.belongsTo(db.Estudiante, { foreignKey: "estudianteId", as: "estudiante" });
+//db.Estudiante.hasMany(db.Grado, { foreignKey: "estudianteId", as: "grados" });
+//db.Grado.belongsTo(db.Estudiante, { foreignKey: "estudianteId", as: "estudiante" });
 
 // Maestro - Curso
 db.Maestro.hasMany(db.Curso, { foreignKey: "maestroId", as: "cursos" });
 db.Curso.belongsTo(db.Maestro, { foreignKey: "maestroId", as: "profesor" });
 
 // Estudiante - Asignacion
-db.Estudiante.hasMany(db.Asignacion, { foreignKey: "estudianteId", as: "asignaciones" });
-db.Asignacion.belongsTo(db.Estudiante, { foreignKey: "estudianteId", as: "estudiante" });
+//db.Estudiante.hasMany(db.Asignacion, { foreignKey: "estudianteId", as: "asignaciones" });
+//db.Asignacion.belongsTo(db.Estudiante, { foreignKey: "estudianteId", as: "estudiante" });
 
 // Curso - Asignacion
 db.Curso.hasMany(db.Asignacion, { foreignKey: "cursoId", as: "asignaciones" });
